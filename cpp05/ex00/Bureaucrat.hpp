@@ -33,4 +33,6 @@ class Bureaucrat {
 		int grade;
 };
 
+std::ostream& operator<<(std::ostream& out, const Bureaucrat& b);
+
 #endif
