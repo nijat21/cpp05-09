@@ -4,9 +4,9 @@ CC=c++
 CFLAGS=-Wall -Wextra -Werror -std=c++98 -g #-Wno-shadow #-Wshadow 
 VAL=valgrind --leak-check=full
 
-SRCS:=main.cpp Serializer.cpp 
+SRCS:=main.cpp ScalarConverter.cpp 
 OBJS:=$(SRCS:%.cpp=%.o)
-NAME=serialize
+NAME=convert
 
 all: $(NAME)
 

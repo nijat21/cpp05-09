@@ -27,7 +27,7 @@ ScalarConverter::~ScalarConverter()
 {
 }
 
-void printChar(const double num, const bool pseudo) {
+static void printChar(const double num, const bool pseudo) {
     std::cout << "char: ";
     if(pseudo || (num > std::numeric_limits<char>::max()) || (num < std::numeric_limits<char>::min())) {
         std::cout << "impossible" << std::endl;
@@ -41,7 +41,7 @@ void printChar(const double num, const bool pseudo) {
     std::cout << std::endl;
 }
 
-void printInt(const double num, const bool pseudo) {
+static void printInt(const double num, const bool pseudo) {
     std::cout << "int: ";
     if(pseudo || (num > std::numeric_limits<int>::max()) || (num < std::numeric_limits<int>::min())){
         std::cout << "impossible" << std::endl;
@@ -49,7 +49,7 @@ void printInt(const double num, const bool pseudo) {
         std::cout << static_cast<int>(num) << std::endl;
 }
 
-void printFloatDouble(const double num) {
+static void printFloatDouble(const double num) {
     int inLimit = true;
     if(num > std::numeric_limits<float>::max() || num < -std::numeric_limits<float>::max()) {
         inLimit = false;
