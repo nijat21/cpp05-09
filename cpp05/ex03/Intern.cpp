@@ -20,24 +20,24 @@ Intern &Intern::operator=(const Intern &rhs) {
 Intern::~Intern() {}
 
 AForm *Intern::makeForm(const std::string &formName, const std::string &target) {
-    AForm* res = NULL;
+    AForm *res = NULL;
     switch (formName[0]) {
-        case 'S':
-            if (formName == "ShrubberyCreationForm")
-                res = new ShrubberyCreationForm(target);
-            break;
-        case 'R':
-            if (formName == "RobotomyRequestForm")
-                res = new RobotomyRequestForm(target);
-            break;
-        case 'P':
-            if (formName == "PresidentialPardonForm")
-                res = new PresidentialPardonForm(target);
-            break;
-        default:
-            break;
+    case 'S':
+        if (formName == "ShrubberyCreationForm")
+            res = new ShrubberyCreationForm(target);
+        break;
+    case 'R':
+        if (formName == "RobotomyRequestForm")
+            res = new RobotomyRequestForm(target);
+        break;
+    case 'P':
+        if (formName == "PresidentialPardonForm")
+            res = new PresidentialPardonForm(target);
+        break;
+    default:
+        break;
     }
-    if(res) 
+    if (res)
         std::cout << "Intern creates " << formName << std::endl;
     else
         std::cerr << "There's not such form" << std::endl;

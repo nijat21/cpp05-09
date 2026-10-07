@@ -9,7 +9,7 @@ class Bureaucrat;
 
 class AForm {
   public:
-    AForm(const std::string& name, int signGrade, int execGrade);
+    AForm(const std::string &name, int signGrade, int execGrade);
     AForm(const AForm &src);
     AForm &operator=(const AForm &rhs);
     virtual ~AForm();
@@ -19,9 +19,9 @@ class AForm {
     int getSignGrade() const;
     int getExecGrade() const;
     void beSigned(const Bureaucrat &b);
-    void checkExecReq(const Bureaucrat& b) const;
+    void checkExecReq(const Bureaucrat &b) const;
 
-    virtual void execute(const Bureaucrat& b) const = 0;
+    virtual void execute(const Bureaucrat &b) const = 0;
 
     class GradeTooHighException : public std::exception {
       public:

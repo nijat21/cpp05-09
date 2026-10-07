@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 
-AForm::AForm(const std::string& name, int signGrade, int execGrade)
+AForm::AForm(const std::string &name, int signGrade, int execGrade)
     : name(name), _signed(false), signGrade(signGrade), execGrade(execGrade) {}
 
 AForm::AForm(const AForm &src)
@@ -40,9 +40,9 @@ void AForm::beSigned(const Bureaucrat &b) {
         _signed = true;
 }
 
-void AForm::checkExecReq(const Bureaucrat& b) const {
-	if(b.getGrade() > execGrade)
-		throw GradeTooLowException();
+void AForm::checkExecReq(const Bureaucrat &b) const {
+    if (b.getGrade() > execGrade)
+        throw GradeTooLowException();
 }
 
 const char *AForm::GradeTooHighException::what() const throw() {

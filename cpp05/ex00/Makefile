@@ -1,11 +1,12 @@
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re val
 
 CC=c++
 CFLAGS=-Wall -Wextra -Werror -std=c++98 -g #-Wno-shadow #-Wshadow 
 VAL=valgrind --leak-check=full
 
+OBJS_DIR=build
 SRCS:=main.cpp Bureaucrat.cpp
-OBJS:=$(SRCS:%.cpp=%.o)
+OBJS:=$(patsubst %.cpp,$(OBJS_DIR)/%.o, $(SRCS))
 NAME=bureaucrat
 
 all: $(NAME)
@@ -13,14 +14,15 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
-%.o: %.cpp
+$(OBJS_DIR)/%.o: %.cpp
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 val: $(NAME)
 	$(VAL) ./$(NAME)
 
 clean:
-	rm -f $(OBJS)
+	rm -rf $(OBJS_DIR)
 
 fclean: clean
 	rm -f $(NAME)
