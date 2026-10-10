@@ -1,22 +1,21 @@
 #ifndef ARRAY_HPP
-# define ARRAY_HPP
+#define ARRAY_HPP
 
 template <class T>
-class Array
-{
+class Array {
     public:
         Array();
         Array(unsigned int n);
-        Array(const Array &src);
-        Array &operator=(const Array &rhs);
+        Array(const Array& src);
+        Array &operator=(const Array& rhs);
         ~Array();
+    
+        size_t size();
         
-        unsigned int size();
-        T& operator[](unsigned int index);
 
     private:
-        T* arr;
-        unsigned int n;
-};
+        T  
+}
+
 
 #endif

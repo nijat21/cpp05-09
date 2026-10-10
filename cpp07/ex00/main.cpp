@@ -5,8 +5,8 @@
 int main () {
   int i=5, j=6;
   long l=10, m=8;
-  std::string c = "chaine1";
-  std::string d = "chaine2";
+  std::string c = "chain1";
+  std::string d = "chain2";
 
   std::cout << "Variables" << std::endl;
   std::cout << "-----------------------------------------" << std::endl;
