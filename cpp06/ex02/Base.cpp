@@ -3,10 +3,6 @@
 #include <ctime>
 #include <iostream>
 
-Base::Base()
-{
-}
-
 Base::~Base()
 {
 }
@@ -23,18 +19,22 @@ static Base* createC() {
     return new C();
 }
 
-Base* Base::generate() {
+Base* generate() {
     typedef Base* (*Create)();
     Create creates[3] = {
         createA,
         createB,
         createC
     };
-    std::srand(time(0));
+    static bool seeded = false;
+    if (!seeded) {
+        std::srand(static_cast<unsigned int>(std::time(0)));
+        seeded = true;
+    }
     return creates[rand() % 3]();
 }
 
-void Base::identify(Base* p) {
+void identify(Base* p) {
     if(dynamic_cast<A*>(p))
         std::cout << "A" << std::endl;
     else if(dynamic_cast<B*>(p))
@@ -45,7 +45,7 @@ void Base::identify(Base* p) {
         std::cerr << "Type not found" << std::endl;
 }
 
-void Base::identify(Base& p) {
+void identify(Base& p) {
     bool found = false;
     try {
         dynamic_cast<A&>(p);
@@ -64,8 +64,8 @@ void Base::identify(Base& p) {
         std::cout << "C" << std::endl;
         found = true;
     } catch(...) {}
+
     if(!found)
         std::cerr << "Type not found" << std::endl;
-
 }
 

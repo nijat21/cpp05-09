@@ -1,12 +1,23 @@
 #include "Base.hpp"
 #include <iostream>
 
-int main() {
-    Base a;
-    
-    Base* r = a.generate();
+void check_same_instance() {
+    Base* r = generate();
     Base& ref = *r;
-    a.identify(r);
-    a.identify(ref);
+    identify(r);
+    identify(ref);
 }
+
+void multiple_instances() {
+    for(int i = 0; i < 5; i++) {
+        Base* r = generate();
+        identify(r);
+    }
+}
+
+int main() {
+    check_same_instance();
+    multiple_instances();
+}
+
 
