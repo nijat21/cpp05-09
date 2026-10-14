@@ -15,14 +15,18 @@ class Array {
 
     unsigned int size() const;
 
-    class OutOfBoundsException : public std::exception() {
+    class OutOfBoundsException : public std::exception {
       public:
-        virtual const char *what() const throw() { return "Index is out of bounds" };
+        virtual const char *what() const throw() {
+            return "Index is out of bounds";
+        };
     };
 
   private:
     T *data;
     unsigned int len;
 };
+
+#include "Array.tpp"
 
 #endif

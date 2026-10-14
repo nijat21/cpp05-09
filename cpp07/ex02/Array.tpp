@@ -1,14 +1,10 @@
 #include "Array.hpp"
 
 template <class T>
-Array<T>::Array() : len(0) {
-    return new T[];
-}
+Array<T>::Array() : len(0), data(0) {}
 
 template <class T>
-Array<T>::Array(unsigned int n) : len(n) {
-    return new T[n];
-}
+Array<T>::Array(unsigned int n) : len(n), data(new T[n]) {}
 
 template <class T>
 Array<T>::Array(const Array &src) {
@@ -17,10 +13,11 @@ Array<T>::Array(const Array &src) {
 
 template <class T>
 Array<T> &Array<T>::operator=(const Array &rhs) {
-    if (*this != rhs) {
+    if (this != rhs) {
         for (unsigned int i = 0; i < len; i++)
             this->data[i] = new T(rhs[i]);
     }
+    return *this;
 }
 
 template <class T>
