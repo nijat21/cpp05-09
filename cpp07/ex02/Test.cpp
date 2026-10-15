@@ -4,7 +4,11 @@
 
 int Test::count = 0;
 
-Test::Test(std::string _name) : id(count), name(_name) {
+Test::Test() : id(count), name("default") {
+    count++;
+}
+
+Test::Test(std::string &_name) : id(count), name(_name) {
     count++;
 }
 
@@ -15,7 +19,6 @@ Test::Test(const Test &src) {
 Test &Test::operator=(const Test &rhs) {
     if (this != &rhs) {
         id = rhs.id;
-        name = rhs.name;
     }
     return (*this);
 }
@@ -31,6 +34,6 @@ std::string Test::getName() const {
 }
 
 std::ostream &operator<<(std::ostream &os, const Test &t) {
-    os << "Test: " << t.getId() << ", name: " << t.getName();
+    os << "Test " << t.getId() << ": " << t.getName();
     return os;
 }

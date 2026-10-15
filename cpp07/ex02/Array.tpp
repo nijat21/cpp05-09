@@ -14,17 +14,29 @@ Array<T>::Array(const Array &src) {
 template <class T>
 Array<T> &Array<T>::operator=(const Array &rhs) {
     if (this != rhs) {
-        for (unsigned int i = 0; i < len; i++)
-            this->data[i] = new T(rhs[i]);
+        T *tmp = new T[rhs.len];
+        for (unsigned int i = 0; i < rhs.len; i++)
+            tmp[i] = rhs.data[i];
+        delete[] data;
+        data = tmp;
+        len = rhs.len;
     }
     return *this;
 }
 
 template <class T>
-const T &Array<T>::operator[](unsigned int i) {
-    if (i < 0 || i > len - 1)
+const T &Array<T>::operator[](unsigned int i) const {
+    if (i >= len)
         throw OutOfBoundsException();
     return data[i];
+}
+
+template <class T>
+std::ostream &operator<<(std::ostream &os, const Array<T> &a) {
+    for (unsigned int i = 0; i < a.size(); i++) {
+        os << a[i] << "\n";
+    }
+    return os;
 }
 
 template <class T>

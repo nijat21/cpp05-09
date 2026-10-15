@@ -2,6 +2,7 @@
 #define ARRAY_HPP
 
 #include <exception>
+#include <iostream>
 
 template <class T>
 class Array {
@@ -10,7 +11,7 @@ class Array {
     Array(unsigned int n);
     Array(const Array &src);
     Array &operator=(const Array &rhs);
-    const T &operator[](unsigned int i);
+    const T &operator[](unsigned int i) const;
     ~Array();
 
     unsigned int size() const;
@@ -23,9 +24,12 @@ class Array {
     };
 
   private:
-    T *data;
     unsigned int len;
+    T *data;
 };
+
+template <class T>
+std::ostream &operator<<(std::ostream &os, const Array<T> &a);
 
 #include "Array.tpp"
 

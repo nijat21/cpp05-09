@@ -5,7 +5,8 @@
 
 class Test {
   public:
-    Test(std::string _name);
+    Test();
+    Test(std::string &_name);
     Test(const Test &src);
     Test &operator=(const Test &rhs);
     ~Test();
