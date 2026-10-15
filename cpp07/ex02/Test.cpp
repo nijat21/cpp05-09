@@ -34,6 +34,6 @@ std::string Test::getName() const {
 }
 
 std::ostream &operator<<(std::ostream &os, const Test &t) {
-    os << "Test " << t.getId() << ": " << t.getName();
+    os << "Test " << t.getId() << ": " << t.getName() << "\n";
     return os;
 }

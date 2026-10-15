@@ -13,7 +13,7 @@ Array<T>::Array(const Array &src) {
 
 template <class T>
 Array<T> &Array<T>::operator=(const Array &rhs) {
-    if (this != rhs) {
+    if (this != &rhs) {
         T *tmp = new T[rhs.len];
         for (unsigned int i = 0; i < rhs.len; i++)
             tmp[i] = rhs.data[i];
@@ -34,7 +34,7 @@ const T &Array<T>::operator[](unsigned int i) const {
 template <class T>
 std::ostream &operator<<(std::ostream &os, const Array<T> &a) {
     for (unsigned int i = 0; i < a.size(); i++) {
-        os << a[i] << "\n";
+        os << a[i];
     }
     return os;
 }
