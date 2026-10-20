@@ -12,6 +12,9 @@ class Span {
         ~Span();
 
         void addNumber(const int num);
+        unsigned int size() const;
+        unsigned int findDiff(unsigned int i, unsigned int j) const;
+        
         Span& shortestSpan();
         Span& longestSpan();
 
