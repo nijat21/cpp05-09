@@ -5,7 +5,7 @@ CFLAGS=-Wall -Wextra -Werror -std=c++98 -g
 VAL=valgrind --leak-check=full
 
 OBJS_DIR=build
-SRCS:=main.cpp 
+SRCS:=main.cpp Span.cpp
 OBJS:=$(patsubst %.cpp, $(OBJS_DIR)/%.o, $(SRCS))
 NAME=span
 

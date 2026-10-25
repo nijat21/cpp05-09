@@ -5,32 +5,36 @@
 #include <vector>
 
 class Span {
-    public:
-        Span(unsigned int _N);
-        Span(const Span& src);
-        Span& operator=(const Span& rhs);
-        ~Span();
+  public:
+    Span(unsigned int _N);
+    Span(const Span &src);
+    Span &operator=(const Span &rhs);
+    ~Span();
 
-        void addNumber(const int num);
-        Span& shortestSpan();
-        Span& longestSpan();
+    void addNumber(const int num);
+    void addRange(const std::vector<int>::iterator begin, const std::vector<int>::iterator end);
 
-        class SpanFullException : public std::exception {
-            virtual const char* what() const throw() {
-                return "Span is already full!";
-            };
+    unsigned int findExtreme(bool less) const;
+
+    unsigned int shortestSpan();
+    unsigned int longestSpan();
+
+    class SpanFullException : public std::exception {
+        virtual const char *what() const throw() {
+            return "Span is already full!";
         };
-            
-        class NoSpanException : public std::exception {
-            virtual const char* what() const throw() {
-                return "No span can be found!";
-            };
+    };
+
+    class NoSpanException : public std::exception {
+        virtual const char *what() const throw() {
+            return "No span can be found!";
         };
-    
-    private:
-        Span();
-        unsigned int N;
-        std::vector<int> data;
+    };
+
+  private:
+    Span();
+    unsigned int N;
+    std::vector<int> data;
 };
 
 #endif
