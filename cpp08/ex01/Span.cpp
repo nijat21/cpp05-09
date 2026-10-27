@@ -41,7 +41,7 @@ unsigned int Span::findExtreme(bool less) const {
         for (std::size_t i = 1; i < sorted.size(); i++) {
             long long diff =
                 static_cast<long long>(sorted[i]) - static_cast<long long>(sorted[i - 1]);
-            res = (diff < res) ? diff : res;
+            res = std::min(diff, res);
         }
     } else {
         res = static_cast<long long>(sorted.back()) - static_cast<long long>(sorted.front());
