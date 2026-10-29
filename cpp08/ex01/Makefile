@@ -1,7 +1,7 @@
 .PHONY: all clean fclean re
 
 CC=c++
-CFLAGS=-Wall -Wextra -Werror -std=c++98 -g  
+CFLAGS= -g -Wall -Wextra -Werror -std=c++98 -pedantic  
 VAL=valgrind --leak-check=full
 
 OBJS_DIR=build

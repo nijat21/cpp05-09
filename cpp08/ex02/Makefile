@@ -1,13 +1,13 @@
 .PHONY: all clean fclean re
 
 CC=c++
-CFLAGS=-Wall -Wextra -Werror -std=c++98 -g  
+CFLAGS= -g -Wall -Wextra -Werror -std=c++98 -pedantic 
 VAL=valgrind --leak-check=full
 
 OBJS_DIR=build
-SRCS:=main.cpp Span.cpp
+SRCS:=main.cpp
 OBJS:=$(patsubst %.cpp, $(OBJS_DIR)/%.o, $(SRCS))
-NAME=span
+NAME=mstack
 
 all: $(NAME)
 
