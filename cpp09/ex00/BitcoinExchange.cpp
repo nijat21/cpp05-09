@@ -1,6 +1,17 @@
 #include "BitcoinExchange.hpp"
+#include <map>
+#include <fstream>
+#include <string>
 
 BitcoinExchange::BitcoinExchange()
+{
+    std::string line;
+    std::ifstream in("data.csv");
+    getline(in, line);    
+    while(*line)
+}
+
+BitcoinExchange::BitcoinExchange(std::map data) : data(data)
 {
 }
 

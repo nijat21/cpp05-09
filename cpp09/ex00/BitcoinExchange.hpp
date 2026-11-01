@@ -1,8 +1,7 @@
 #ifndef BITCOINEXCHANGE_HPP
 # define BITCOINEXCHANGE_HPP
 
-// SOME VALUE KEY PAIR WITH EASY SEARCH
-#include <>
+#include <map>
 
 class BitcoinExchange
 {
@@ -11,12 +10,11 @@ class BitcoinExchange
         BitcoinExchange(const BitcoinExchange &src);
         BitcoinExchange &operator=(const BitcoinExchange &rhs);
         ~BitcoinExchange();
-
         
+        void calcVal(std::multimap input) const;
 
     private:
-        std::[] data;
-        std::[] input;
+        std::map data;
 };
 
 #endif
