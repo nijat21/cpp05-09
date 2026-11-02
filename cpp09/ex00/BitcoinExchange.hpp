@@ -2,17 +2,19 @@
 # define BITCOINEXCHANGE_HPP
 
 #include <map>
+#include <string>
 
 class BitcoinExchange
 {
     public:
         BitcoinExchange();
+        BitcoinExchange(std::string filename = "data.csv");
         BitcoinExchange(const BitcoinExchange &src);
         BitcoinExchange &operator=(const BitcoinExchange &rhs);
         ~BitcoinExchange();
-        
-        void calcVal(std::multimap input) const;
 
+        void fillData(std::string filename);
+        unsigned int getPrice(std::string date);
     private:
         std::map data;
 };
