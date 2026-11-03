@@ -32,10 +32,37 @@ BitcoinExchange::~BitcoinExchange()
 {
 }
 
+static validRate(std::string str) {
+    if(!str.length()) 
+        return false;
+    else {
+        for(size_t i = 0; i < str.length(); i++) {
+            if(isalpha(std::static_cast<int>(str[i])))
+               return false; 
+        }
+    }
+    return true;
+}
+
+static validRate(std::string str) {
+    if(!str.length()) 
+        return false;
+    else {
+        for(size_t i = 0; i < str.length(); i++) {
+            if(isalpha(std::static_cast<int>(str[i])))
+               return false; 
+        }
+    }
+    return true;
+}
+
+// closest earlier date doesn't exist, no values after comma or non-numeric
 void BitcoinExchange::fillData(std::string filename) {
     std::string line;
     std::ifstream in(filename);
     std::ofstream out;
+    
+    dataFile = filename;
 
     if(!file.isopen()) 
         throw std::runtime_error("Couldn't open file: " + filename);
@@ -43,8 +70,12 @@ void BitcoinExchange::fillData(std::string filename) {
     while(std::getline(in, line)) {
         if(!std::isalpha(static_cast<unsigned char>(*line))) {
             int pos = line.find(',');
-            if(pos != std::string::npos)
-                data[line.substr(0, pos)] = std::static_cast<int>(line.substr(pos + 1));
+            if(pos != std::string::npos) {
+                std::string tmp = line.substr(pos+1);
+                if(!validRate(line))
+                    throw std::invalid_argument("Invalid data format");
+                data[line.substr(0, pos)] = std::static_cast<int>(tmp);
+            }
         }
         out << line;
         getline(in, line);    
@@ -54,7 +85,7 @@ void BitcoinExchange::fillData(std::string filename) {
         throw std::runtime_error("Error reading the file: " + filename)
 }
 
-unsigned int BitcoinExchange::getPrice(std::string date) {
+unsigned int BitcoinExchange::getRate(std::string date) {
     return data[date];
 }
 
