@@ -1,92 +1,72 @@
 #include "BitcoinExchange.hpp"
-#include <map>
+#include "utils.hpp"
 #include <fstream>
-#include <string>
+#include <map>
+#include <sstream>
 #include <stdexcept>
+#include <string>
 
-BitcoinExchange::BitcoinExchange()
-{
+BitcoinExchange::BitcoinExchange() {
     fillData("data.csv");
 }
 
-BitcoinExchange::BitcoinExchange(std::string filename)
-{
+BitcoinExchange::BitcoinExchange(std::string filename) {
     fillData(filename);
 }
 
-BitcoinExchange::BitcoinExchange(const BitcoinExchange &src)
-{
+BitcoinExchange::BitcoinExchange(const BitcoinExchange &src) {
     *this = src;
 }
 
-BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &rhs)
-{
-    if (this != &rhs)
-    {
+BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &rhs) {
+    if (this != &rhs) {
         this->data = rhs.data;
     }
     return (*this);
 }
 
-BitcoinExchange::~BitcoinExchange()
-{
-}
+BitcoinExchange::~BitcoinExchange() {}
 
-static validRate(std::string str) {
-    if(!str.length()) 
-        return false;
-    else {
-        for(size_t i = 0; i < str.length(); i++) {
-            if(isalpha(std::static_cast<int>(str[i])))
-               return false; 
-        }
-    }
-    return true;
-}
-
-static validRate(std::string str) {
-    if(!str.length()) 
-        return false;
-    else {
-        for(size_t i = 0; i < str.length(); i++) {
-            if(isalpha(std::static_cast<int>(str[i])))
-               return false; 
-        }
-    }
-    return true;
-}
-
-// closest earlier date doesn't exist, no values after comma or non-numeric
 void BitcoinExchange::fillData(std::string filename) {
     std::string line;
-    std::ifstream in(filename);
-    std::ofstream out;
-    
-    dataFile = filename;
+    std::ifstream infile(filename);
+    std::string err;
 
-    if(!file.isopen()) 
+    if (!infile.is_open())
         throw std::runtime_error("Couldn't open file: " + filename);
 
-    while(std::getline(in, line)) {
-        if(!std::isalpha(static_cast<unsigned char>(*line))) {
-            int pos = line.find(',');
-            if(pos != std::string::npos) {
-                std::string tmp = line.substr(pos+1);
-                if(!validRate(line))
-                    throw std::invalid_argument("Invalid data format");
-                data[line.substr(0, pos)] = std::static_cast<int>(tmp);
-            }
+    while (std::getline(infile, line)) {
+        if (!std::isalpha(static_cast<unsigned char>(line[0]))) {
+            size_t pos = line.find(',');
+            std::string date;
+            std::string rate;
+            if ((pos == std::string::npos) || (line.find(',', pos + 1) != std::string::npos) ||
+                !validDate(date = line.substr(0, pos), err) ||
+                !validRate(rate = line.substr(pos + 1), err))
+                throw std::invalid_argument(err);
+            data[date] = strToFloat(rate);
         }
-        out << line;
-        getline(in, line);    
     }
-
-    if(file.bad())
-        throw std::runtime_error("Error reading the file: " + filename)
+    if (infile.bad())
+        throw std::runtime_error("Error reading the file: " + filename);
 }
 
-unsigned int BitcoinExchange::getRate(std::string date) {
-    return data[date];
+#include <iostream>
+float BitcoinExchange::getRate(std::string date) const {
+    std::string err;
+    if (!validDate(date, err))
+        throw std::invalid_argument(err);
+
+    std::map<std::string, float>::const_iterator it = data.upper_bound(date);
+    // std::cout << "Searched->>" << std::endl;
+    // std::cout << date << "; Date: " << (it)->first << "; Rate: " << (it)->second << std::endl;
+
+    if (it == data.begin() || it == data.end())
+        throw std::invalid_argument("Invalid date.");
+    else {
+        --it;
+        // std::cout << "Returned->>" << std::endl;
+        // std::cout << "Date: " << it->first << "; Rate: " << it->second << std::endl;
+        return (it)->second;
+    };
 }
-
-

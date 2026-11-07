@@ -7,13 +7,13 @@
 class BitcoinExchange {
   public:
     BitcoinExchange();
-    BitcoinExchange(std::string filename = "data.csv");
+    BitcoinExchange(std::string filename);
     BitcoinExchange(const BitcoinExchange &src);
     BitcoinExchange &operator=(const BitcoinExchange &rhs);
     ~BitcoinExchange();
 
     void fillData(std::string filename);
-    unsigned int getRate(std::string date);
+    float getRate(std::string date) const;
 
   private:
     std::map<std::string, float> data;
