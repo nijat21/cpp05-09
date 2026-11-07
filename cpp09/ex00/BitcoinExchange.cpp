@@ -33,7 +33,7 @@ void BitcoinExchange::fillData(const std::string &filename) {
     std::string err;
 
     if (!infile.is_open())
-        throw std::runtime_error("Couldn't open file: " + filename);
+        throw std::runtime_error("Error: couldn't open file: " + filename);
 
     while (std::getline(infile, line)) {
         if (!std::isalpha(static_cast<unsigned char>(line[0]))) {
@@ -48,7 +48,7 @@ void BitcoinExchange::fillData(const std::string &filename) {
         }
     }
     if (infile.bad())
-        throw std::runtime_error("Error reading the file: " + filename);
+        throw std::runtime_error("Error: couldn't read the file: " + filename);
 }
 
 float BitcoinExchange::getRate(const std::string &date) const {
@@ -57,15 +57,8 @@ float BitcoinExchange::getRate(const std::string &date) const {
         throw std::invalid_argument(err);
 
     std::map<std::string, float>::const_iterator it = data.upper_bound(date);
-    // std::cout << "Searched->>" << std::endl;
-    // std::cout << date << "; Date: " << (it)->first << "; Rate: " << (it)->second << std::endl;
-
     if (it == data.begin() || it == data.end())
-        throw std::invalid_argument("Invalid date.");
-    else {
-        --it;
-        // std::cout << "Returned->>" << std::endl;
-        // std::cout << "Date: " << it->first << "; Rate: " << it->second << std::endl;
-        return (it)->second;
-    };
+        throw std::invalid_argument("Error: invalid date.");
+    else
+        return (--it)->second;
 }

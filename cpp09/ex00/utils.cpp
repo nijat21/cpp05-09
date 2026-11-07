@@ -4,22 +4,24 @@
 #include <string>
 
 float strToFloat(const std::string &str) {
-    std::istringstream tmp(str);
+    std::stringstream tmp(str);
     float res;
     tmp >> res;
     return static_cast<float>(res);
 }
 
-bool validNumber(const std::string &str, std::string& err) {
-    size_t i = 0;
-    if (str[i] == '-' || str[i] == '+')
-        i++;
-    while (str[i]) {
-        if (isalpha(static_cast<unsigned char>(str[i]))) {
-            err = "Error: not a number.";
-            return false;
-        }
-        i++;
+bool validNumber(const std::string &str, std::string &err) {
+    std::stringstream ss(str);
+    float num;
+    char extra;
+
+    if (!(ss >> num)) {
+        err = "Error: not a number.";
+        return false;
+    }
+    if (ss >> extra) {
+        err = "Error: number with a trailing char.";
+        return false;
     }
     if (strToFloat(str) < 0) {
         err = "Error: not a positive number.";
@@ -32,7 +34,7 @@ bool validRate(const std::string &str, std::string &err) {
     if (!str.length()) {
         err = "Error: empty";
         return false;
-    } else 
+    } else
         validNumber(str, err);
     return true;
 }
@@ -54,6 +56,6 @@ bool validDate(const std::string &str, std::string &err) {
             }
         }
     if (!valid)
-        err = "Invalid date format.";
+        err = "Error: invalid date format.";
     return valid;
 }

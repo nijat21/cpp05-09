@@ -13,10 +13,8 @@ int main(int ac, char **av) {
     }
     try {
         BitcoinExchange a;
-        // std::cout << a.getRate(av[1]) << std::endl;
         std::string filename(av[1]);
         btc(filename, a);
-
     } catch (const std::exception &e) {
         std::cerr << e.what() << std::endl;
     }
