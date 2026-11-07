@@ -10,7 +10,7 @@ BitcoinExchange::BitcoinExchange() {
     fillData("data.csv");
 }
 
-BitcoinExchange::BitcoinExchange(std::string filename) {
+BitcoinExchange::BitcoinExchange(const std::string &filename) {
     fillData(filename);
 }
 
@@ -27,9 +27,9 @@ BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &rhs) {
 
 BitcoinExchange::~BitcoinExchange() {}
 
-void BitcoinExchange::fillData(std::string filename) {
+void BitcoinExchange::fillData(const std::string &filename) {
     std::string line;
-    std::ifstream infile(filename);
+    std::ifstream infile(filename.c_str());
     std::string err;
 
     if (!infile.is_open())
@@ -51,8 +51,7 @@ void BitcoinExchange::fillData(std::string filename) {
         throw std::runtime_error("Error reading the file: " + filename);
 }
 
-#include <iostream>
-float BitcoinExchange::getRate(std::string date) const {
+float BitcoinExchange::getRate(const std::string &date) const {
     std::string err;
     if (!validDate(date, err))
         throw std::invalid_argument(err);

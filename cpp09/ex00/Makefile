@@ -5,7 +5,7 @@ CFLAGS= -g -Wall -Wextra -Werror -std=c++98 -pedantic
 VAL=valgrind --leak-check=full
 
 OBJS_DIR=build
-SRCS:=main.cpp BitcoinExchange.cpp utils.cpp
+SRCS:=main.cpp BitcoinExchange.cpp utils.cpp calc.cpp
 OBJS:=$(patsubst %.cpp, $(OBJS_DIR)/%.o, $(SRCS))
 NAME=btc
 
