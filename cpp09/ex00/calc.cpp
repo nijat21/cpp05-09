@@ -34,7 +34,12 @@ bool posQtyStart(const std::string &str, size_t pos, size_t &newPos) {
 bool validateNum(const std::string &qty, const BitcoinExchange &bt, const std::string &date,
                  float &num) {
     try {
-        num = strToFloat(qty) * bt.getRate(date);
+        int tmpNum;
+        if (!strToFloat(qty, tmpNum)) {
+            std::cerr << "Error: not a number." << std::endl;
+            return false;
+        }
+        num = tmpNum * bt.getRate(date);
     } catch (const std::exception &e) {
         std::cerr << e.what() << '\n';
         return false;

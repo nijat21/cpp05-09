@@ -3,11 +3,14 @@
 #include <sstream>
 #include <string>
 
-float strToFloat(const std::string &str) {
+bool strToFloat(const std::string &str, int &num) {
     std::stringstream tmp(str);
     float res;
-    tmp >> res;
-    return static_cast<float>(res);
+
+    if (!(tmp >> res))
+        return false;
+    num = res;
+    return true;
 }
 
 bool validNumber(const std::string &str, std::string &err) {
@@ -23,7 +26,7 @@ bool validNumber(const std::string &str, std::string &err) {
         err = "Error: number with a trailing char.";
         return false;
     }
-    if (strToFloat(str) < 0) {
+    if (num < 0) {
         err = "Error: not a positive number.";
         return false;
     }

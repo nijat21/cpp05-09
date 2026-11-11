@@ -44,7 +44,10 @@ void BitcoinExchange::fillData(const std::string &filename) {
                 !validDate(date = line.substr(0, pos), err) ||
                 !validRate(rate = line.substr(pos + 1), err))
                 throw std::invalid_argument(err);
-            data[date] = strToFloat(rate);
+            int tmpNum;
+            if (!strToFloat(rate, tmpNum))
+                throw std::invalid_argument("Error: not a number.");
+            data[date] = tmpNum;
         }
     }
     if (infile.bad())
