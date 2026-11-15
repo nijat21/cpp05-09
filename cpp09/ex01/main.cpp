@@ -6,4 +6,5 @@ int main(int ac, char **av) {
         std::cerr << "Program should be run as ./RPN \"1 6 3 25 3\"" << std::endl;
         return 1;
     }
+    RPN a(av[1]);
 }
