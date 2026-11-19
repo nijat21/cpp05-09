@@ -22,12 +22,12 @@ bool validNumber(const std::string &str, std::string &err) {
 }
 
 bool isOperator(const std::string &str, std::string &err) {
-    if (str.length() > 1) {
+    if (str.length() > 1 || !(str[0] == '+' || str[0] == '-' || str[0] == '*' || str[0] == '/')) {
         if (err.empty())
             err = "Error: not an operator: " + str;
         return false;
     }
-    return (str[0] == '+' || str[0] == '-' || str[0] == '*' || str[0] == '/');
+    return true;
 }
 
 bool calc(int &a, const int &b, const std::string &str, std::string &err) {
@@ -45,7 +45,8 @@ bool calc(int &a, const int &b, const std::string &str, std::string &err) {
         a = b / a;
         return true;
     default:
-        err = "Error: unsupported operator: " + str;
+        if (err.empty())
+            err = "Error: unsupported operator: " + str;
         return false;
     }
 }
