@@ -1,50 +1,56 @@
 #include "utils.hpp"
+#include <iostream>
 #include <sstream>
 #include <string>
 
-static bool validNumber(const std::string &str, std::string &err) {
+bool validNumber(const std::string &str, std::string &err) {
     std::stringstream ss(str);
-    float num;
-    int extra;
+    int num;
+    std::string extra;
 
     if (!(ss >> num)) {
-        err = "Error: not a number.";
+        if (err.empty())
+            err = "Error: not a number: " + str;
         return false;
     }
     if (ss >> extra) {
-        err = "Error: number with a trailing char.";
+        if (err.empty())
+            err = "Error: number with a trailing char: " + extra;
         return false;
     }
     return true;
 }
 
-static bool isOperator(std::string str) {
-    if (str.length() > 1)
+bool isOperator(const std::string &str, std::string &err) {
+    if (str.length() > 1) {
+        if (err.empty())
+            err = "Error: not an operator: " + str;
         return false;
+    }
     return (str[0] == '+' || str[0] == '-' || str[0] == '*' || str[0] == '/');
 }
 
-static bool calc(int &a, const int &b, const std::string &str, std::string &err) {
+bool calc(int &a, const int &b, const std::string &str, std::string &err) {
     switch (str[0]) {
     case '+':
         a += b;
         return true;
     case '-':
-        a -= b;
+        a = b - a;
         return true;
     case '*':
         a *= b;
         return true;
     case '/':
-        a /= b;
+        a = b / a;
         return true;
     default:
-        err = "Error: unsupported operator.";
+        err = "Error: unsupported operator: " + str;
         return false;
     }
 }
 
-bool strToInt(const std::string &str) {
+int strToInt(const std::string &str) {
     std::stringstream tmp(str);
     int res;
 

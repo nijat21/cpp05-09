@@ -7,10 +7,13 @@
 class RPN {
   public:
     RPN();
-    RPN(const std::string &src);
+    RPN(const std::string &arg);
     RPN(const RPN &src);
     RPN &operator=(const RPN &rhs);
     ~RPN();
+
+    void printResult();
+    void printData() const;
 
   private:
     std::list<int> data;

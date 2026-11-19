@@ -6,5 +6,14 @@ int main(int ac, char **av) {
         std::cerr << "Program should be run as ./RPN \"1 6 3 25 3\"" << std::endl;
         return 1;
     }
-    RPN a(av[1]);
+
+    try {
+        RPN a(av[1]);
+
+        // std::cout << std::endl;
+        a.printResult();
+
+    } catch (const std::exception &e) {
+        std::cerr << e.what() << std::endl;
+    }
 }
