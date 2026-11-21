@@ -42,7 +42,7 @@ bool calc(int &a, const int &b, const std::string &str, std::string &err) {
         a *= b;
         return true;
     case '/':
-        if(a == 0 ) {
+        if (a == 0) {
             err = "Error: division by zero.";
             return false;
         }

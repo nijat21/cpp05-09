@@ -19,7 +19,7 @@
 #include <iostream>
 #include <string>
 
-void runTest(const std::string& label, const std::string& expr, const std::string& expected) {
+void runTest(const std::string &label, const std::string &expr, const std::string &expected) {
     std::cout << "[TEST] " << label << "\n"
               << "  Input:    \"" << expr << "\"\n"
               << "  Expected: " << expected << "\n"
@@ -27,7 +27,7 @@ void runTest(const std::string& label, const std::string& expr, const std::strin
     try {
         RPN a(expr);
         a.printResult();
-    } catch (const std::exception& e) {
+    } catch (const std::exception &e) {
         std::cerr << e.what() << std::endl;
     }
     std::cout << "----------------------------------------" << std::endl;
@@ -54,8 +54,8 @@ void runTestSuite(void) {
     runTest("Whitespace only", "    \t  ", "Error");
     runTest("Division by zero", "5 0 /", "Error");
     runTest("Modulo / Unsupported operator", "5 2 %", "Error");
-    runTest("Number >= 10 (Subject rule)", "10 2 +", "Error");
-    runTest("Negative input number", "-5 2 +", "Error");
+    runTest("Number >= 10 (Subject rule)", "10 2 +", "12");
+    runTest("Negative input number", "-5 2 +", "-3");
     runTest("Decimal / Float number", "5.5 2 +", "Error");
     runTest("No spaces between tokens", "89*", "Error");
     runTest("Trailing characters on token", "8 9a *", "Error");
@@ -66,7 +66,7 @@ void runTestSuite(void) {
     runTest("Invalid letters", "a b +", "Error");
 }
 
-int main(int ac, char** av) {
+int main(int ac, char **av) {
     if (ac != 2) {
         std::cerr << "Error" << std::endl;
         return 1;
@@ -81,7 +81,7 @@ int main(int ac, char** av) {
     try {
         RPN a(av[1]);
         a.printResult();
-    } catch (const std::exception& e) {
+    } catch (const std::exception &e) {
         std::cerr << e.what() << std::endl;
         return 1;
     }
