@@ -3,7 +3,6 @@
 
 #include <vector>
 #include <deque>
-#include <string>
 
 class PmergeMe {
     public:
@@ -13,6 +12,9 @@ class PmergeMe {
         PmergeMe(const PmergeMe& src);
         PmergeMe& operator=(const PmergeMe& rhs);
         ~PmergeMe();
+
+        void sortVec();
+        // void sortDeq();
 
     private:
         std::vector<int> vecInp;

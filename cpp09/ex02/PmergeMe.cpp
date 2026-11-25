@@ -26,3 +26,12 @@ PmergeMe& PmergeMe::operator=(const PmergeMe& rhs){
 }
 
 PmergeMe::~PmergeMe(){}
+
+void PmergeMe::sortVec() {
+    // Divide into two vectors comparing adjacent numbers
+    // Sort b vector keeping the related a's for each b
+    // Insert the first a
+        // ... 
+    
+}
+

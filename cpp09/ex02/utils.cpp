@@ -13,7 +13,7 @@ std::string* toStr(char** arr) {
     return strArr;
 }
 
-bool validNumber(const std::string &str, std::string &err) {
+bool strToInt(const std::string &str, int& dst, std::string &err) {
     std::stringstream ss(str);
     int num;
     std::string extra;
@@ -28,14 +28,6 @@ bool validNumber(const std::string &str, std::string &err) {
             err = "Error: number with a trailing char: " + extra;
         return false;
     }
+    dst = num;
     return true;
 }
-
-int strToInt(const std::string &str) {
-    std::stringstream tmp(str);
-    int res;
-
-    tmp >> res;
-    return res;
-}
-
