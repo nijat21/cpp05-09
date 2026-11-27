@@ -1,0 +1,35 @@
+The recursive sorting function is Ford–Johnson itself. You're not creating a different sorting algorithm.
+
+Think of it as the same process repeating on a smaller input.
+
+Let's use an example:
+
+[7, 3, 9, 1, 5, 2, 8, 4]
+
+First recursive call:
+1. Pair elements → larger: [7, 9, 5, 8]
+2. Keep smaller elements associated: [3, 1, 2, 4]
+3. Call Ford–Johnson recursively with the larger elements.
+Second recursive call:
+
+Input: [7, 9, 5, 8]
+1. Pair elements → larger: [9, 8]
+2. Smaller: [7, 5]
+3. Call Ford–Johnson recursively with [9, 8].
+Third recursive call:
+
+Input: [9, 8]
+1. Pair elements → larger: [9]
+2. Smaller: [8]
+3. Call Ford–Johnson recursively with [9].
+Base case:
+
+A vector with one element is already sorted. Return it.
+
+Now recursion unwinds:
+- Sort [9, 8] → [8, 9]
+- Sort [7, 9, 5, 8] using its pairing information and insertion phase.
+- Sort the original input using its pairing information and insertion phase.
+The key concept:
+
+Every recursive call performs the complete Ford–Johnson algorithm on its input, including pairing, recursive sorting and insertion.
